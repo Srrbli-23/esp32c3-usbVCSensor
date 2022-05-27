@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="LVGL.Portable.vcxitems.filters" />
+  <Import Project="LVGL.Drivers.vcxitems.filters" />
+  <ItemGroup>
+    <ClInclude Include="lv_conf.h" />
+    <ClInclude Include="lv_drv_conf.h" />
+    <ClInclude Include="application\base64.h">
+      <Filter>application</Filter>
+    </ClInclude>
+    <ClInclude Include="application\lvgl_application_create.h">
+      <Filter>application</Filter>
+    </ClInclude>
+    <ClInclude Include="application\lvgl_netInfo_create.h">
+      <Filter>application</Filter>
+    </ClInclude>
+    <ClInclude Include="application\lvgl_usbSensor_create.h">
+      <Filter>application</Filter>
+    </ClInclude>
+    <ClInclude Include="application\lvgl_digitclock_create.h">
+      <Filter>application</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="LVGL.Simulator.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Mile.Project.Properties.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="LVGL.Simulator.c" />
+    <ClCompile Include="application\lvgl_application_create.c">
+      <Filter>application</Filter>
+    </ClCompile>
+    <ClCompile Include="application\lvgl_netInfo_create.c">
+      <Filter>application</Filter>
+    </ClCompile>
+    <ClCompile Include="application\lvgl_usbSensor_create.c">
+      <Filter>application</Filter>
+    </ClCompile>
+    <ClCompile Include="application\src\lv_font_awesom.c">
+      <Filter>application\src</Filter>
+    </ClCompile>
+    <ClCompile Include="application\src\lv_font_msYaHei.c">
+      <Filter>application\src</Filter>
+    </ClCompile>
+    <ClCompile Include="application\lvgl_digitclock_create.c">
+      <Filter>application</Filter>
+    </ClCompile>
+    <ClCompile Include="application\src\dianaIMG.c">
+      <Filter>application\src</Filter>
+    </ClCompile>
+    <ClCompile Include="application\src\bellaIMG.c">
+      <Filter>application\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LVGL.Simulator.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="LVGL.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="freetype.props" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="img">
+      <UniqueIdentifier>{7e1adb85-be42-45e5-8a1a-a27a18968f4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application">
+      <UniqueIdentifier>{4319ee46-a94a-4fc1-89be-0a4b960afc1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\src">
+      <UniqueIdentifier>{de380eb9-a74c-4e3f-9fe2-3aba58d2f8ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="application\CMakeLists.txt">
+      <Filter>application</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,29 @@
+menu "usbVCSensor MQTT Configuration"
+config MQTT_BROKER_URI
+    string "mqtt broker uri"
+    default "lisrrb23.icu"
+    help
+        enter mqtt broker uri(project setting: tcp/port 1883)
+
+config MQTT_BROKER_USER
+    string "mqtt broker username"
+    help
+        -u,--username in mosquitto mqtt broker
+
+config MQTT_BROKER_PASSWORD
+    string "mqtt broker password"
+    help
+        -P,--pw in mosquitto mqtt broker
+
+config MQTT_USERGEN_UNIQUE_ID
+    bool "Whether to customize the unique id of mqtt"
+    help
+        yes: use user-defined id. no: use mac address to generate. (Note: application id instead of client_id.read Readme for more...)
+
+config MQTT_USERGEN_ID_STRING
+    string "mqtt unique id"
+    depends on MQTT_USERGEN_UNIQUE_ID
+    help
+        enter mqtt unique id which will use in root topoc
+
+endmenu

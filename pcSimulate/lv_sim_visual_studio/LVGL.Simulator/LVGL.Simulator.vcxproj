@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="Mile.Project\Mile.Project.Platform.Win32.props" />
+  <Import Project="Mile.Project\Mile.Project.Platform.x64.props" />
+  <Import Project="Mile.Project\Mile.Project.Platform.ARM64.props" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3CA6E070-4AC1-475E-BB17-CF29AE4806DF}</ProjectGuid>
+    <RootNamespace>LVGL</RootNamespace>
+    <MileProjectType>ConsoleApplication</MileProjectType>
+    <MileProjectManifestFile>LVGL.Simulator.manifest</MileProjectManifestFile>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='Debug'">
+    <SupportLTL>false</SupportLTL>
+  </PropertyGroup>
+  <Import Project="Mile.Project\Mile.Project.props" />
+  <Import Project="Mile.Project\Mile.Project.Runtime.VC-LTL.props" />
+  <Import Project="freetype.props" />
+  <PropertyGroup>
+    <IncludePath>$(MSBuildThisFileDirectory);$(MSBuildThisFileDirectory)application;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <AllProjectIncludesArePublic>false</AllProjectIncludesArePublic>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization Condition="'$(Configuration)'=='Release'">MinSpace</Optimization>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="LVGL.Portable.vcxitems" />
+  <Import Project="LVGL.Drivers.vcxitems" />
+  <ItemGroup>
+    <ClInclude Include="application\base64.h" />
+    <ClInclude Include="application\lvgl_application_create.h" />
+    <ClInclude Include="application\lvgl_digitclock_create.h" />
+    <ClInclude Include="application\lvgl_netInfo_create.h" />
+    <ClInclude Include="application\lvgl_usbSensor_create.h" />
+    <ClInclude Include="lv_conf.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lv_drv_conf.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="LVGL.Simulator.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Mile.Project.Properties.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="application\lvgl_application_create.c" />
+    <ClCompile Include="application\lvgl_digitclock_create.c" />
+    <ClCompile Include="application\lvgl_netInfo_create.c" />
+    <ClCompile Include="application\lvgl_usbSensor_create.c" />
+    <ClCompile Include="application\src\bellaIMG.c" />
+    <ClCompile Include="application\src\dianaIMG.c" />
+    <ClCompile Include="application\src\lv_font_awesom.c" />
+    <ClCompile Include="application\src\lv_font_msYaHei.c" />
+    <ClCompile Include="LVGL.Simulator.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LVGL.Simulator.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="LVGL.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="freetype.props" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="application\CMakeLists.txt" />
+  </ItemGroup>
+  <Import Project="Mile.Project\Mile.Project.targets" />
+</Project>

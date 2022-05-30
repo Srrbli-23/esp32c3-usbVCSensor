@@ -206,10 +206,16 @@ void peripheralsensorTask(void *pvParameter)
             ESP_LOGI(TAG, "INA226 voltage = %d",vlot_data);
 
             ina226_shutvolt_read(&curr_data);
-            curr_data = (~curr_data)+1; //硬件中已经反接了V+和V-
-            curr_data = curr_data*8192/0x7fff; //得到采样电阻上的电压
-            curr_data = curr_data*100/15; //得到电流 采样电阻15m Ohm 
+            ESP_LOGI(TAG, "INA226 shutv = %d",curr_data);
+            curr_data = ~(curr_data-1); //硬件中已经反接了V+和V-
+            curr_data = (int64_t)curr_data*(int64_t)8192*100/0x7fff/15; //得到采样电阻上的电压
+            //得到电流 采样电阻15m Ohm 
+            //curr_data = curr_data*100/15; 
             //电流的计算 I*10000 (A) 即 12554等于1.2554A 
+            if((curr_data<=2)&&(curr_data>=-2))
+            {
+                curr_data = 0; //软件滤波
+            }
             usbSensor_currentNumber_set(curr_data);
             ESP_LOGI(TAG, "INA226 current = %d",curr_data);
             
@@ -230,7 +236,15 @@ void peripheralsensorTask(void *pvParameter)
                 numberlen = sprintf(numberstring,"%d.%03d",vlot_data/1000,vlot_data%1000);
                 esp_mqtt_client_publish(mqtt_appclient,MQTT_UNIQUE_ID"/usb/voltage",numberstring,numberlen,0,0);
 
-                numberlen = sprintf(numberstring,"%d.%04d",curr_data/10000,curr_data%10000);
+                if(curr_data < 0)
+                {
+                    numberlen = sprintf(numberstring,"%d.%04d",curr_data/10000,(~(curr_data - 1))%10000);
+                }
+                else
+                {
+                    numberlen = sprintf(numberstring,"%d.%04d",curr_data/10000,curr_data%10000);
+                }
+                
                 esp_mqtt_client_publish(mqtt_appclient,MQTT_UNIQUE_ID"/usb/current",numberstring,numberlen,0,0);
             }
         }
@@ -252,7 +266,15 @@ void peripheralsensorTask(void *pvParameter)
             if(xEventGroupWaitBits(g_wifi_event_group, MQTTC_CONNECTED_OK,false,false, 0))
             {
                 //已经连接上MQTT服务器
-                numberlen = sprintf(numberstring,"%d.%02d",temperature_data/100,vlot_data%100);
+                if(temperature_data<0)
+                {
+                    numberlen = sprintf(numberstring,"%d.%02d",temperature_data/100,(~(vlot_data-1))%100);
+                }
+                else
+                {
+                    numberlen = sprintf(numberstring,"%d.%02d",temperature_data/100,vlot_data%100);
+                }
+                
                 esp_mqtt_client_publish(mqtt_appclient,MQTT_UNIQUE_ID"/clk/temperature",numberstring,numberlen,0,0);
 
                 numberlen = sprintf(numberstring,"%d.%02d",rhumidity_data/100,rhumidity_data%100);

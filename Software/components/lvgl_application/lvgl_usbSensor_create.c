@@ -81,13 +81,13 @@ void usbSensor_currentNumber_set(int32_t ampele)
         {
             current_inte = ampele / 10000;
             current_frac = (~(ampele - 1)) % 10000;
-            lv_label_set_text_fmt(label_currentNumb, "%d.%03d", current_inte, current_frac);
+            lv_label_set_text_fmt(label_currentNumb, "%d.%03d", current_inte, current_frac/10);
         }
         else
         {
             current_inte = ampele / 10000;
             current_frac = ampele % 10000;
-            lv_label_set_text_fmt(label_currentNumb, "%d.%03d", current_inte, current_frac);
+            lv_label_set_text_fmt(label_currentNumb, "%d.%03d", current_inte, current_frac/10);
         }
         
 

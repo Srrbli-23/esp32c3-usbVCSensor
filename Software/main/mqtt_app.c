@@ -50,6 +50,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         msg_id = esp_mqtt_client_publish(client, MQTT_UNIQUE_ID"/status", "Online", 0, 1, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
+        //msg_id = esp_mqtt_client_subscribe(client, MQTT_UNIQUE_ID"/debug", 0);
         msg_id = esp_mqtt_client_subscribe(client, MQTT_UNIQUE_ID"/debug", 0);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
 
@@ -94,6 +95,11 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                 lv_tabview_set_act(tabview, 1, LV_ANIM_ON);
                 break;
             
+            case 2:
+            case '2':
+                lv_tabview_set_act(tabview, 2, LV_ANIM_ON);
+                break;
+
             default:
                 break;
             }

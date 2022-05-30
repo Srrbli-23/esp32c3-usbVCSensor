@@ -59,7 +59,7 @@ void app_main()
         false,
         false,
         portMAX_DELAY);
-    button_init();
+    xTaskCreate(buttonTask,"uiButton",2048,NULL,1,NULL);
     xTaskCreate(timeprocTask,"sntpTime",2048,NULL,3,NULL);
     xTaskCreate(peripheralsensorTask,"periSensor",2048,NULL,2,NULL);
 
@@ -67,7 +67,8 @@ void app_main()
     mqtt_app_start();
 
     while(1)
-    {     
-        vTaskDelay(pdMS_TO_TICKS(200));
+    {
+        esp_mqtt_client_publish(mqtt_appclient, MQTT_UNIQUE_ID"/status", "Online", 0, 0, 0);
+        vTaskDelay(pdMS_TO_TICKS(5000));
     }
 }

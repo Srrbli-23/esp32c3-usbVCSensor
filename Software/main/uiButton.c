@@ -18,10 +18,13 @@
 
 #define GPIO_BUTTON_NUM 9
 
-static void buttonTask(void *pvParameter)
+static void button_init(void);
+
+void buttonTask(void *pvParameter)
 {
     static uint8_t lastState=0;
     static uint8_t tabview_nextID;
+    button_init();
     while(1)
     {
         switch (lastState)
@@ -68,7 +71,7 @@ static void buttonTask(void *pvParameter)
     }
 }
 
-void button_init(void)
+static void button_init(void)
 {
     gpio_reset_pin(GPIO_BUTTON_NUM);
     gpio_config_t button_conf =
@@ -81,5 +84,4 @@ void button_init(void)
     };
 
     gpio_config(&button_conf);
-    xTaskCreate(buttonTask,"button",2048,NULL,1,NULL);
 }

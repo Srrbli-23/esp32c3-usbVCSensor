@@ -144,8 +144,8 @@ static esp_err_t sht31_init(void)
     }
 
     //设置为循环工作状态 0x2236 2Hz High Repeatability
-    send_buf[0] = 0x23;
-    send_buf[1] = 0x34;
+    send_buf[0] = 0x22;
+    send_buf[1] = 0x36;
     err_t = i2c_master_write_to_device(0, SHT31_I2C_ADDR, send_buf, 2, 1000 / portTICK_PERIOD_MS);
     if( err_t==ESP_ERR_TIMEOUT )
     {

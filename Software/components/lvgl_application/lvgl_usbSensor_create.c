@@ -306,7 +306,7 @@ static void pannel_chargeProtocol_Display(lv_obj_t* parent)
     lv_meter_set_indicator_end_value(meter_chargeInfo, indic2, 100);
 
     lv_anim_init(&anim_meterToChange);
-    lv_anim_set_time(&anim_meterToChange, 50);
+    lv_anim_set_time(&anim_meterToChange, 100);
     lv_anim_set_exec_cb(&anim_meterToChange, anim_meterChargeInfo_cb);
     lv_anim_set_values(&anim_meterToChange, 20, 80);
 

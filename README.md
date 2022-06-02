@@ -21,7 +21,6 @@ USB voltage and current sensor based on ESP32C3+LVGLv8. English version of the d
 - 彩屏UI使用LVGL v8 、 st7789驱动
 - 使用MQTT协议进行数据传输
 - SmartConfig(EspTouch)和NVS进行连网操作
-- 物料成本在RMB120以内(含PCB)
 
 ## 使用说明
 

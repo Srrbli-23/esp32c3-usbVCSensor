@@ -95,13 +95,13 @@ esp_err_t ina226_voltage_read(int32_t* volt)
     return err_t;
 }
 
-esp_err_t ina226_shutvolt_read(int32_t* volt)
+esp_err_t ina226_shuntvolt_read(int32_t* volt)
 {
-    int16_t shutvolt_ori;
+    int16_t shuntvolt_ori;
     esp_err_t err_t;
-    err_t = ina226_reg_read(0x01,&shutvolt_ori);
+    err_t = ina226_reg_read(0x01,&shuntvolt_ori);
 
-    *volt = (int32_t)shutvolt_ori;
+    *volt = (int32_t)shuntvolt_ori;
     return err_t;
 }
 
@@ -201,12 +201,16 @@ void peripheralsensorTask(void *pvParameter)
         //循环 采集和发送usb 和 温湿度
         if( err_ina226 == ESP_OK )
         {
+            //先接收，再统一处理
             ina226_voltage_read(&vlot_data);
+            ina226_shuntvolt_read(&curr_data);
+
+            //电压处理
             usbSensor_voltageNumber_set(vlot_data);
             ESP_LOGI(TAG, "INA226 voltage = %d",vlot_data);
 
-            ina226_shutvolt_read(&curr_data);
-            ESP_LOGI(TAG, "INA226 shutv = %d",curr_data);
+            //电流处理        
+            ESP_LOGI(TAG, "INA226 shunt voltage = %d",curr_data);
             curr_data = ~(curr_data-1); //硬件中已经反接了V+和V-
             curr_data = (int64_t)curr_data*(int64_t)8192*100/0x7fff/15; //得到采样电阻上的电压
             //得到电流 采样电阻15m Ohm 
